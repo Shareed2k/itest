@@ -1,0 +1,19 @@
+{
+  "name": "shareed2k/itest",
+  "authors": [
+    {
+      "name": "Roman Kredentser",
+      "email": "shareed2k@gmail.com"
+    }
+  ],
+  "description": "package under development",
+  "autoload": {
+    "psr-4": {
+      "Shareed2k\\iTest\\": "src"
+    }
+  },
+  "require": {
+    "sabre/xml": "~2.1.0",
+    "guzzlehttp/guzzle": "~6.3.3"
+  }
+}
