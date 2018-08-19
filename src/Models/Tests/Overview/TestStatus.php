@@ -38,6 +38,9 @@ class TestStatus implements XmlDeserializable {
     </Test_Status>
      */
 
+    /**
+     * @var Job
+     */
     public $job;
 
     /**
@@ -45,7 +48,7 @@ class TestStatus implements XmlDeserializable {
      * @return TestStatus
      */
     static function xmlDeserialize(Reader $reader):TestStatus {
-        $ts = new self();
+        $ts = new TestStatus();
 
         // Borrowing a parser from the KeyValue class.
         $keyValue = KeyValue::xmlDeserialize($reader);

@@ -155,6 +155,8 @@ class Call implements XmlDeserializable
             $call->fDLR = $keyValue['{}F-DLR'];
         }
 
+        $reader->elementMap['{}Call'] = Call::class;
+
         return $call;
     }
 }
