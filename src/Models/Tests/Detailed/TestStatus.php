@@ -59,25 +59,28 @@ class TestStatus implements XmlDeserializable {
     public $testOverview;
 
     /**
-     * @var Call
+     * @var array
      */
-    public $call;
+    public $calls = [];
 
     /**
      * @param Reader $reader
      * @return TestStatus
+     * @throws \Sabre\Xml\LibXMLException
+     * @throws \Sabre\Xml\ParseException
      */
     static function xmlDeserialize(Reader $reader):TestStatus {
-        $ts = new self();
+        $ts = new TestStatus();
 
-        // Borrowing a parser from the KeyValue class.
-        $keyValue = KeyValue::xmlDeserialize($reader);
+        $children = $reader->parseInnerTree();
+        foreach($children as $child) {
+            if ($child['value'] instanceof Call) {
+                $ts->calls[] = $child['value'];
+            }
 
-        if (isset($keyValue['{}Test_Overview']) && $keyValue['{}Test_Overview'] instanceof TestOverview) {
-            $ts->testOverview = $keyValue['{}Test_Overview'];
-        }
-        if (isset($keyValue['{}Call']) && $keyValue['{}Call'] instanceof Call) {
-            $ts->call = $keyValue['{}Call'];
+            if ($child['value'] instanceof TestOverview) {
+                $ts->testOverview = $child['value'];
+            }
         }
 
         return $ts;
